@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Teste.Models.Editoras>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Procura por Nome: @Html.TextBox("SearchString")
+        <input type="submit" value="Busca" />
+
+    </p>
+
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("CNPJ", "Index", new { sortOrder = ViewBag.CNPJSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.NomeSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Endereco", "Index", new { sortOrder = ViewBag.EnderecoSortParm })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CNPJ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
